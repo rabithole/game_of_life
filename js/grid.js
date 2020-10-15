@@ -1,4 +1,3 @@
-
 (function draw() {
         const canvas =document.querySelector('canvas')
         const context = canvas.getContext('2d');
@@ -19,7 +18,7 @@
         let grid = buildGrid();
         render(grid);
 
-        // requestAnimationFrame(update);
+        // requestAnimationFrame(draw);
 
         // Generation counter, calls nextGen again, re-renders and calls requestAnimationFrame again. 
          function update() {
@@ -31,6 +30,11 @@
         console.log(speed)
             }, 700)
         // console.log(speed)
+        }
+
+        function start() {
+            console.log('start')
+            requestAnimationFrame(update)
         }
 
         // setTimeout(update, 50)
