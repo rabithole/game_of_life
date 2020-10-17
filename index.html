@@ -9,16 +9,18 @@
 
   <link rel="stylesheet" href="./css/index.css">
 
-  <script src="./js/grid.js" defer></script>
+  <script src="./js/grid.js"></script>
 </head>
 
 <body>
     <header>Cellular Automata</header>
-    <canvas id='canvas'></canvas>
+
+    <div id='world'>
+    </div>
+
     <div className="buttons">
-      <button onclick='start()'>START</button>
-      <button onclick='start()'>STOP</button>
-      <button>PAUSE</button>
+      <button id='btnstartstop' value='Start Reproducing' onclick='startStopGol()'>Start/Stop</button>
+      <button id='btnreset' value='Reset World' onclick='resetWorld()'>Reset World</button>
     </div>
 </body>
 </html>
