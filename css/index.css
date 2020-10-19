@@ -49,11 +49,11 @@ button {
 
 #gens {
   background-color: lightblue;
-  padding: 0 20px;
+  padding: 5px 10px;
   box-shadow: 5px 5px 15px black;
   border: 2px solid black;
   border-radius: 5px;
-  width: 60%;
+  width: 20%;
   text-align: left;
   margin: 0 auto 1% auto;
   font-family: Georgia;

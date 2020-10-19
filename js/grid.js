@@ -2,8 +2,10 @@ const rows = 40;
 const cols = 40;
 let started=false;// Set to true when use clicks start
 let timer;//To control evolutions
-let evolutionSpeed=100;// One second between generations
+let evolutionSpeed=500;// One second between generations
 // Need 2D arrays. These are 1D
+let generation = 0;
+
 let currGen =[rows];
 let nextGen =[rows];
 // Creates two-dimensional arrays
@@ -11,9 +13,9 @@ function createGenArrays() {
     for (let i = 0; i < rows; i++) {
         currGen[i] = new Array(cols);
         nextGen[i] = new Array(cols);
-      
     }
 }
+
 function initGenArrays() {
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
@@ -22,8 +24,10 @@ function initGenArrays() {
         }
     }
 }
+
 function createWorld() {
     let world = document.querySelector('#world');
+    // let generation = document.querySelector('#gens').html('Generation: ' + generation)
     
     let tbl = document.createElement('table');
     tbl.setAttribute('id','worldgrid');
@@ -40,6 +44,7 @@ for (let i = 0; i < rows; i++) {
     }
     world.appendChild(tbl);
 }
+
 function cellClick() {
     let loc = this.id.split("_");
     let row = Number(loc[0]);
@@ -53,6 +58,7 @@ function cellClick() {
         currGen[row][col] = 1;
     }
 }
+
 function createNextGen() {
     for (row in currGen) {
         for (col in currGen[row]) {
@@ -82,6 +88,7 @@ function createNextGen() {
     }
     
 }
+
 function getNeighborCount(row, col) {
     let count = 0;
     let nrow=Number(row);
@@ -145,7 +152,6 @@ function getNeighborCount(row, col) {
 }
     
     function updateCurrGen() {
-       
         for (row in currGen) {
             for (col in currGen[row]) {
                 // Update the current generation with
@@ -158,18 +164,18 @@ function getNeighborCount(row, col) {
      
     }
 function updateWorld() {
-        let cell='';
-        for (row in currGen) {
-            for (col in currGen[row]) {
-                cell = document.getElementById(row + '_' + col);
-                if (currGen[row][col] == 0) {
-                    cell.setAttribute('class', 'dead');
-                } else {
-                    cell.setAttribute('class', 'alive');
-                }
+    let cell='';
+    for (row in currGen) {
+        for (col in currGen[row]) {
+            cell = document.getElementById(row + '_' + col);
+            if (currGen[row][col] == 0) {
+                cell.setAttribute('class', 'dead');
+            } else {
+                cell.setAttribute('class', 'alive');
             }
         }
     }
+}
 function evolve(){
       
         createNextGen();
