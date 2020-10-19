@@ -4,6 +4,9 @@ let started=false;// Set to true when use clicks start
 let timer;//To control evolutions
 let evolutionSpeed=500;// One second between generations
 // Need 2D arrays. These are 1D
+
+let gen = document.querySelector('#gens').innerHTML;
+console.log(gen)
 let generation = 0;
 
 let currGen =[rows];
@@ -27,7 +30,6 @@ function initGenArrays() {
 
 function createWorld() {
     let world = document.querySelector('#world');
-    // let generation = document.querySelector('#gens').html('Generation: ' + generation)
     
     let tbl = document.createElement('table');
     tbl.setAttribute('id','worldgrid');
@@ -86,7 +88,6 @@ function createNextGen() {
             }
         }
     }
-    
 }
 
 function getNeighborCount(row, col) {
@@ -151,18 +152,19 @@ function getNeighborCount(row, col) {
     return count;
 }
     
-    function updateCurrGen() {
-        for (row in currGen) {
-            for (col in currGen[row]) {
-                // Update the current generation with
-                // the results of createNextGen function
-                currGen[row][col] = nextGen[row][col];
-                // Set nextGen back to empty
-                nextGen[row][col] = 0;
-            }
+function updateCurrGen() {
+    for (row in currGen) {
+        for (col in currGen[row]) {
+            // Update the current generation with
+            // the results of createNextGen function
+            currGen[row][col] = nextGen[row][col];
+            // Set nextGen back to empty
+            nextGen[row][col] = 0;
         }
-     
     }
+ 
+}
+
 function updateWorld() {
     let cell='';
     for (row in currGen) {
@@ -176,6 +178,7 @@ function updateWorld() {
         }
     }
 }
+
 function evolve(){
       
         createNextGen();
@@ -185,26 +188,28 @@ if (started) {
             timer = setTimeout(evolve, evolutionSpeed);
         }
 }
+
 function startStopGol(){
-        let startstop=document.querySelector('#btnstartstop');
-       
-        if (!started) {
-           started = true;
-           startstop.value='Stop Reproducing';
-           evolve();
-         
-         } else {
-            started = false;
-            startstop.value='Start Reproducing';
-            clearTimeout(timer); 
-        }
+    let startstop=document.querySelector('#btnstartstop');
+   
+    if (!started) {
+       started = true;
+       startstop.value='Stop Reproducing';
+       evolve();
+     
+     } else {
+        started = false;
+        startstop.value='Start Reproducing';
+        clearTimeout(timer); 
     }
+}
  
   
-    function resetWorld() {
-        location.reload();
-  
-    }
+function resetWorld() {
+    location.reload();
+
+}
+
 window.onload=()=>{
     createWorld(); // The visual table
     createGenArrays(); // current and next generations
