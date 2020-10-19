@@ -217,4 +217,6 @@ window.onload=()=>{
     initGenArrays(); //Set all array locations to 0=dead
 }
 
-console.log(generation)
+const handleChange = e => {
+    let speed = e.target.value
+  }
