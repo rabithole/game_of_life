@@ -2,12 +2,10 @@ const rows = 40;
 const cols = 40;
 let started=false;// Set to true when use clicks start
 let timer;//To control evolutions
-let evolutionSpeed=500;// One second between generations
+let evolutionSpeed=3000;// One second between generations
 // Need 2D arrays. These are 1D
 
-let gen = document.querySelector('#gens').innerHTML;
-console.log(gen)
-let generation = 0;
+let generation = 1;
 
 let currGen =[rows];
 let nextGen =[rows];
@@ -167,6 +165,7 @@ function updateCurrGen() {
 
 function updateWorld() {
     let cell='';
+    
     for (row in currGen) {
         for (col in currGen[row]) {
             cell = document.getElementById(row + '_' + col);
@@ -180,10 +179,12 @@ function updateWorld() {
 }
 
 function evolve(){
-      
-        createNextGen();
-        updateCurrGen();
-        updateWorld();
+    let gen = document.querySelector('#gens').innerHTML = 'Generation: ' + generation;
+    generation++
+    console.log(generation)
+    createNextGen();
+    updateCurrGen();
+    updateWorld();
 if (started) {
             timer = setTimeout(evolve, evolutionSpeed);
         }
@@ -215,3 +216,5 @@ window.onload=()=>{
     createGenArrays(); // current and next generations
     initGenArrays(); //Set all array locations to 0=dead
 }
+
+console.log(generation)
