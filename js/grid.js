@@ -2,8 +2,12 @@ const rows = 40;
 const cols = 40;
 let started=false;// Set to true when use clicks start
 let timer;//To control evolutions
-let evolutionSpeed=3000;// One second between generations
+// let evolutionSpeed=3000;// One second between generations
 // Need 2D arrays. These are 1D
+evolutionSpeed = parseFloat(document.querySelector('#speed').value) * 1000;
+console.log(evolutionSpeed)
+console.log(parseFloat(0.5))
+console.log(document.querySelector('#speed').value)
 
 let generation = 1;
 
