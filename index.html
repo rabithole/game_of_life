@@ -14,19 +14,24 @@
 
 <body>
     <header>Cellular Automata</header>
-    <h2 id='gens'>Generation: 0</h2>
-    <input
-      id='speed'
-      type='text'
-      value='0.5'
-      placeholder='Generation Speed in Seconds'
+    <h2 id='gen' class='display'>Generations: 0</h2>
+
+    <div class='display'>
+      <label for='random'>Randomizer</label>
+      <input type='checkbox' id='random'>
+      <input
+        id='speed'
+        type='text'
+        value='0.5'
       >
+    </div>
+    
 
     <div id='world'>
     </div>
 
     <div className="buttons">
-      <button id='btnstartstop' value='Start Reproducing' onclick='startStopGol()'>Start/Stop</button>
+      <button id='btnstartstop' value='Start Reproducing' onclick='startStop()'>Start/Stop</button>
       <button id='btnreset' value='Reset World' onclick='resetWorld()'>Reset World</button>
     </div>
 </body>

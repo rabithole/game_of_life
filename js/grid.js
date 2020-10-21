@@ -1,18 +1,22 @@
 const rows = 40;
 const cols = 40;
-let started=false;// Set to true when use clicks start
+let started = false;// Set to true when use clicks start
 let timer;//To control evolutions
 // let evolutionSpeed=3000;// One second between generations
 // Need 2D arrays. These are 1D
 evolutionSpeed = parseFloat(document.querySelector('#speed').value) * 1000;
-console.log(evolutionSpeed)
-console.log(parseFloat(0.5))
-console.log(document.querySelector('#speed').value)
+// console.log('evolve speed', evolutionSpeed)
+// console.log('parse float', parseFloat(0.5))
+// console.log('Speed', document.querySelector('#speed').value)
+
+let random = document.querySelector('#random').checked;
+console.log('test q', random)
 
 let generation = 1;
 
 let currGen =[rows];
 let nextGen =[rows];
+console.log(currGen, nextGen)
 // Creates two-dimensional arrays
 function createGenArrays() {
     for (let i = 0; i < rows; i++) {
@@ -21,6 +25,22 @@ function createGenArrays() {
     }
 }
 
+// function initGenArrays() {
+//     for (let i = 0; i < rows; i++) {
+//         for (let j = 0; j < cols; j++) {
+//             if(Math.floor(Math.random() * 2) === 1){
+//                 currGen[i][j] = 1;
+//                 console.log(currGen[i][j] = 1)
+//                 nextGen[i][j] = 1;
+//             } else {
+//                 currGen[i][j] = 0;
+//                 nextGen[i][j] = 0;
+//             }
+            
+//         }
+//     }
+// }
+
 function initGenArrays() {
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
@@ -28,6 +48,10 @@ function initGenArrays() {
             nextGen[i][j] = 0;
         }
     }
+}
+
+if(random) {
+    console.log('random')
 }
 
 function createWorld() {
@@ -41,13 +65,42 @@ for (let i = 0; i < rows; i++) {
             let cell = document.createElement('td');
             cell.setAttribute('id', i + '_' + j);
             cell.setAttribute('class', 'dead');
-            cell.addEventListener('click',cellClick);            
+            cell.addEventListener('click', cellClick);            
             tr.appendChild(cell);
         }
         tbl.appendChild(tr);
     }
     world.appendChild(tbl);
 }
+
+// function createWorld() {
+//     let world = document.querySelector('#world');
+//     let loc = '';
+//     let row = Number(loc[0]);
+//     let col = Number(loc[1]);
+    
+//     let tbl = document.createElement('table');
+//     tbl.setAttribute('id','worldgrid');
+// for (let i = 0; i < rows; i++) {
+//         let tr = document.createElement('tr');
+//         for (let j = 0; j < cols; j++) {
+//             let cell = document.createElement('td');
+//             if(Math.floor(Math.random() * 2) === 1) {
+//                 cell.setAttribute('id', i + '_' + j);
+//                 cell.setAttribute('class', 'alive');
+//                 cell.addEventListener('click', cellClick);
+//                 tr.appendChild(cell);
+//             } else {
+//                 cell.setAttribute('id', i + '_' + j);
+//                 cell.setAttribute('class', 'dead');
+//                 cell.addEventListener('click', cellClick); 
+//                 tr.appendChild(cell);
+//             }
+//         }
+//         tbl.appendChild(tr);
+//     }
+//     world.appendChild(tbl);
+// }
 
 function cellClick() {
     let loc = this.id.split("_");
@@ -64,6 +117,7 @@ function cellClick() {
 }
 
 function createNextGen() {
+    // console.log('create next gen')
     for (row in currGen) {
         for (col in currGen[row]) {
            
@@ -141,20 +195,17 @@ function getNeighborCount(row, col) {
         if (currGen[nrow + 1][ncol + 1] == 1) 
             count++;
     }
-    
-    
         // Make sure we are not on the last row
     if (nrow + 1 < rows) {
         //Check bottom neighbor
         if (currGen[nrow + 1][ncol] == 1) 
             count++;
     }
-    
-    
     return count;
 }
     
 function updateCurrGen() {
+    // console.log('update current gen')
     for (row in currGen) {
         for (col in currGen[row]) {
             // Update the current generation with
@@ -168,6 +219,7 @@ function updateCurrGen() {
 }
 
 function updateWorld() {
+    // console.log('update world')
     let cell='';
     
     for (row in currGen) {
@@ -183,9 +235,8 @@ function updateWorld() {
 }
 
 function evolve(){
-    let gen = document.querySelector('#gens').innerHTML = 'Generation: ' + generation;
+    let gen = document.querySelector('#gen').innerHTML = 'Generations: ' + generation;
     generation++
-    console.log(generation)
     createNextGen();
     updateCurrGen();
     updateWorld();
@@ -194,7 +245,7 @@ if (started) {
         }
 }
 
-function startStopGol(){
+function startStop(){
     let startstop=document.querySelector('#btnstartstop');
    
     if (!started) {
@@ -212,7 +263,6 @@ function startStopGol(){
   
 function resetWorld() {
     location.reload();
-
 }
 
 window.onload=()=>{
