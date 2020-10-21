@@ -13,26 +13,36 @@
 </head>
 
 <body>
-    <header>Cellular Automata</header>
-    <h2 id='gen' class='display'>Generations: 0</h2>
+  <header>Cellular Automata</header>
+  <h2 id='gen' class='display'>Generations: 0</h2>
 
-    <div class='display'>
-      <label for='random'>Randomizer</label>
-      <input type='checkbox' id='random'>
-      <input
-        id='speed'
-        type='text'
-        value='0.5'
-      >
+  <div class='display'>
+    <label for='random'>Randomizer</label>
+    <input id='random' type='checkbox'>
+    <label for='speed'>Evolution Speed</label>
+    <input id='speed' type='text' value='0.5'>
+  </div>
+  
+  <div id='main'>
+    <div class='buttons'>
+      <button id='btnstartstop' value='Start Reproducing' onclick='startStop()'>Start/Stop</button>
+      <button id='btnreset' value='Reset World' onclick='resetWorld()'>Reset</button>
+      <button id='btnstep' onclick='step()'>One Step</button>
+
+      <article>
+        <h4>Conway's Game of Life is a simple cellular automa created by John Conway in 1970.</h4>
+
+        <ol>
+          <li>Any live cell with fewer than two live neighbours dies, as if caused by under-population.</li>
+          <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+          <li>Any live cell with more than three live neighbours dies, as if by overcrowding.</li>
+          <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+        </ol>
+      </article>
     </div>
-    
 
     <div id='world'>
     </div>
-
-    <div className="buttons">
-      <button id='btnstartstop' value='Start Reproducing' onclick='startStop()'>Start/Stop</button>
-      <button id='btnreset' value='Reset World' onclick='resetWorld()'>Reset World</button>
-    </div>
+  </div>
 </body>
 </html>

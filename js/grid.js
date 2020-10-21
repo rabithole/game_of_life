@@ -1,18 +1,13 @@
 const rows = 40;
-const cols = 40;
+const cols = 50;
 let started = false;// Set to true when use clicks start
 let timer;//To control evolutions
 // let evolutionSpeed=3000;// One second between generations
 // Need 2D arrays. These are 1D
 evolutionSpeed = parseFloat(document.querySelector('#speed').value) * 1000;
-// console.log('evolve speed', evolutionSpeed)
-// console.log('parse float', parseFloat(0.5))
-// console.log('Speed', document.querySelector('#speed').value)
 
 let random = document.querySelector('#random').checked;
 console.log('test q', random)
-
-
 
 let generation = 1;
 
@@ -34,7 +29,32 @@ function createGenArrays() {
 //             nextGen[i][j] = 0;
 //         }
 //     }
+//     currGen[1][1] = 1;
+//     console.log(currGen[1][1])
 // }
+
+// function createWorld() {
+//         let world = document.querySelector('#world');
+//         console.log(currGen[1])
+//         let tbl = document.createElement('table');
+//         tbl.setAttribute('id','worldgrid');
+//     for (let i = 0; i < rows; i++) {
+//             let tr = document.createElement('tr');
+//             for (let j = 0; j < cols; j++) {
+//                 if(currGen === 1) {
+//                     console.log('ahha')
+//                 }
+//                 let cell = document.createElement('td');
+//                 // console.log(cell)
+//                 cell.setAttribute('id', i + '_' + j);
+//                 cell.setAttribute('class', 'dead');
+//                 cell.addEventListener('click', cellClick);            
+//                 tr.appendChild(cell);
+//             }
+//             tbl.appendChild(tr);
+//         }
+//         world.appendChild(tbl);
+//     }
 
 
 // Sets initial grid
@@ -124,8 +144,10 @@ if(random) {
 // Toggles cells alive or dead. 
 function cellClick() {
     let loc = this.id.split("_");
+    console.log(loc)
     let row = Number(loc[0]);
     let col = Number(loc[1]);
+    console.log('Row', row, 'Col', col)
 // Toggle cell alive or dead
     if (this.className==='alive'){
         this.setAttribute('class', 'dead');
@@ -258,6 +280,14 @@ function updateWorld() {
             }
         }
     }
+}
+
+function step() {
+    let gen = document.querySelector('#gen').innerHTML = 'Generations: ' + generation;
+    generation++
+    createNextGen();
+    updateCurrGen();
+    updateWorld();
 }
 
 function evolve(){
