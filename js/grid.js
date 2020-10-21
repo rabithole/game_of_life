@@ -12,6 +12,8 @@ evolutionSpeed = parseFloat(document.querySelector('#speed').value) * 1000;
 let random = document.querySelector('#random').checked;
 console.log('test q', random)
 
+
+
 let generation = 1;
 
 let currGen =[rows];
@@ -28,80 +30,98 @@ function createGenArrays() {
 // function initGenArrays() {
 //     for (let i = 0; i < rows; i++) {
 //         for (let j = 0; j < cols; j++) {
-//             if(Math.floor(Math.random() * 2) === 1){
-//                 currGen[i][j] = 1;
-//                 console.log(currGen[i][j] = 1)
-//                 nextGen[i][j] = 1;
-//             } else {
-//                 currGen[i][j] = 0;
-//                 nextGen[i][j] = 0;
-//             }
-            
+//             currGen[i][j] = 0;
+//             nextGen[i][j] = 0;
 //         }
 //     }
 // }
 
-function initGenArrays() {
-    for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-            currGen[i][j] = 0;
-            nextGen[i][j] = 0;
-        }
-    }
-}
 
+// Sets initial grid
 if(random) {
-    console.log('random')
-}
-
-function createWorld() {
-    let world = document.querySelector('#world');
-    
-    let tbl = document.createElement('table');
-    tbl.setAttribute('id','worldgrid');
-for (let i = 0; i < rows; i++) {
-        let tr = document.createElement('tr');
-        for (let j = 0; j < cols; j++) {
-            let cell = document.createElement('td');
-            cell.setAttribute('id', i + '_' + j);
-            cell.setAttribute('class', 'dead');
-            cell.addEventListener('click', cellClick);            
-            tr.appendChild(cell);
+// Randomizer
+    function initGenArrays() {
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                if(Math.floor(Math.random() * 2) === 1){
+                    currGen[i][j] = 1;
+                    console.log(currGen[i][j] = 1)
+                    nextGen[i][j] = 1;
+                } else {
+                    currGen[i][j] = 0;
+                    nextGen[i][j] = 0;
+                }
+            }
         }
-        tbl.appendChild(tr);
     }
-    world.appendChild(tbl);
+} else {
+// Blank start. Choose your squares...
+    function initGenArrays() {
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                currGen[i][j] = 0;
+                nextGen[i][j] = 0;
+            }
+        }
+    }
 }
 
-// function createWorld() {
-//     let world = document.querySelector('#world');
-//     let loc = '';
-//     let row = Number(loc[0]);
-//     let col = Number(loc[1]);
-    
-//     let tbl = document.createElement('table');
-//     tbl.setAttribute('id','worldgrid');
-// for (let i = 0; i < rows; i++) {
-//         let tr = document.createElement('tr');
-//         for (let j = 0; j < cols; j++) {
-//             let cell = document.createElement('td');
-//             if(Math.floor(Math.random() * 2) === 1) {
-//                 cell.setAttribute('id', i + '_' + j);
-//                 cell.setAttribute('class', 'alive');
-//                 cell.addEventListener('click', cellClick);
-//                 tr.appendChild(cell);
-//             } else {
-//                 cell.setAttribute('id', i + '_' + j);
-//                 cell.setAttribute('class', 'dead');
-//                 cell.addEventListener('click', cellClick); 
-//                 tr.appendChild(cell);
-//             }
-//         }
-//         tbl.appendChild(tr);
-//     }
-//     world.appendChild(tbl);
-// }
 
+// Creates the grid before it is populated. 
+if(random) {
+// Sets random alive and dead squares. 
+    function createWorld() {
+        let world = document.querySelector('#world');
+        let loc = '';
+        let row = Number(loc[0]);
+        let col = Number(loc[1]);
+        
+        let tbl = document.createElement('table');
+        tbl.setAttribute('id','worldgrid');
+    for (let i = 0; i < rows; i++) {
+            let tr = document.createElement('tr');
+            for (let j = 0; j < cols; j++) {
+                let cell = document.createElement('td');
+                if(Math.floor(Math.random() * 2) === 1) {
+                    cell.setAttribute('id', i + '_' + j);
+                    cell.setAttribute('class', 'alive');
+                    cell.addEventListener('click', cellClick);
+                    tr.appendChild(cell);
+                } else {
+                    cell.setAttribute('id', i + '_' + j);
+                    cell.setAttribute('class', 'dead');
+                    cell.addEventListener('click', cellClick); 
+                    tr.appendChild(cell);
+                }
+            }
+            tbl.appendChild(tr);
+        }
+        world.appendChild(tbl);
+    }
+} else {
+// Blank slate, pick your squares with cellClick.
+    function createWorld() {
+        let world = document.querySelector('#world');
+        
+        let tbl = document.createElement('table');
+        tbl.setAttribute('id','worldgrid');
+    for (let i = 0; i < rows; i++) {
+            let tr = document.createElement('tr');
+            for (let j = 0; j < cols; j++) {
+                let cell = document.createElement('td');
+                cell.setAttribute('id', i + '_' + j);
+                cell.setAttribute('class', 'dead');
+                cell.addEventListener('click', cellClick);            
+                tr.appendChild(cell);
+            }
+            tbl.appendChild(tr);
+        }
+        world.appendChild(tbl);
+    }
+}
+
+
+// Toggles cells alive or dead. 
 function cellClick() {
     let loc = this.id.split("_");
     let row = Number(loc[0]);
@@ -116,6 +136,8 @@ function cellClick() {
     }
 }
 
+
+// Handls each generation based on the rules of life. 
 function createNextGen() {
     // console.log('create next gen')
     for (row in currGen) {
@@ -146,6 +168,8 @@ function createNextGen() {
     }
 }
 
+
+// Checks the neighbors of the cell in question. 
 function getNeighborCount(row, col) {
     let count = 0;
     let nrow=Number(row);
@@ -204,6 +228,7 @@ function getNeighborCount(row, col) {
     return count;
 }
     
+
 function updateCurrGen() {
     // console.log('update current gen')
     for (row in currGen) {
@@ -217,6 +242,7 @@ function updateCurrGen() {
     }
  
 }
+
 
 function updateWorld() {
     // console.log('update world')
