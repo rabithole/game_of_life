@@ -1,5 +1,5 @@
 const rows = 40;
-const cols = 50;
+const cols = 60;
 let started = false;// Set to true when use clicks start
 let timer;//To control evolutions
 // let evolutionSpeed=3000;// One second between generations
