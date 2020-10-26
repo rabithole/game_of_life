@@ -6,8 +6,24 @@ let timer;//To control evolutions
 // Need 2D arrays. These are 1D
 evolutionSpeed = parseFloat(document.querySelector('#speed').value) * 1000;
 
-let random = document.querySelector('#random').checked;
-console.log('test q', random)
+// let random = document.querySelector('#random').checked;
+// console.log('test q', random)
+
+function checkBox() {
+    let checked = document.querySelector('#random');
+
+    localStorage.setItem('checked', checked.checked)
+    let ch = localStorage.getItem('checked');
+    console.log(ch)
+    location.reload();
+}
+
+if(localStorage.getItem('checked') === 'true') {
+    console.log('uyu')
+    random.checked = true;
+}
+
+console.log(localStorage.getItem('checked'))
 
 let generation = 1;
 
@@ -58,8 +74,9 @@ function createGenArrays() {
 
 
 // Sets initial grid
-if(random) {
+if(localStorage.getItem('checked') === 'true') {
 // Randomizer
+console.log('true')
     function initGenArrays() {
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
@@ -88,7 +105,8 @@ if(random) {
 
 
 // Creates the grid before it is populated. 
-if(random) {
+if(localStorage.getItem('checked') === 'true') {
+    console.log('set life')
 // Sets random alive and dead squares. 
     function createWorld() {
         let world = document.querySelector('#world');
