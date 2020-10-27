@@ -2,13 +2,11 @@ const rows = 40;
 const cols = 60;
 let started = false;// Set to true when use clicks start
 let timer;//To control evolutions
+let generation = 1;
 
-
-// let evolutionSpeed = document.querySelector('#speed').value * 1000;
 let evolutionSpeed = .5 * 1000;
 let input = document.querySelector('#speed');
 
-// evolutionSpeed = parseFloat(document.querySelector('#speed').value) * 1000;
 console.log('Speed', evolutionSpeed)
 
 input.addEventListener('input', speed)
@@ -16,12 +14,9 @@ input.addEventListener('input', speed)
 function speed(e) {
     evolutionSpeed = e.target.value * 1000;
     console.log(evolutionSpeed)
-    // location.reload();
 }
 
-// let random = document.querySelector('#random').checked;
-// console.log('test q', random)
-
+// sets random if check box is checked. 
 function checkBox() {
     let checked = document.querySelector('#random');
 
@@ -31,14 +26,13 @@ function checkBox() {
     location.reload();
 }
 
+// sets persistence for random or not. 
 if(localStorage.getItem('checked') === 'true') {
     random.checked = true;
 }
 
-console.log(localStorage.getItem('checked'))
 
-let generation = 1;
-
+// Sets the length of arrays
 let currGen =[rows];
 let nextGen =[rows];
 
@@ -83,7 +77,6 @@ if(localStorage.getItem('checked') === 'true') {
 
 // Creates the grid before it is populated. 
 if(localStorage.getItem('checked') === 'true') {
-// Sets random alive and dead squares. 
     function createWorld() {
         let world = document.querySelector('#world');
         let loc = '';
@@ -137,11 +130,12 @@ if(localStorage.getItem('checked') === 'true') {
 
 // Toggles cells alive or dead. 
 function cellClick() {
-    let loc = this.id.split("_");
-    console.log(loc)
+    let loc = this.id.split("_"); // location of mouse click
+    
+    // Asignes 0 or 1 to the td of the table. 
     let row = Number(loc[0]);
     let col = Number(loc[1]);
-    console.log('Row', row, 'Col', col)
+    
 // Toggle cell alive or dead
     if (this.className==='alive'){
         this.setAttribute('class', 'dead');
@@ -155,7 +149,6 @@ function cellClick() {
 
 // Handls each generation based on the rules of life. 
 function createNextGen() {
-    // console.log('create next gen')
     for (row in currGen) {
         for (col in currGen[row]) {
            
@@ -246,7 +239,6 @@ function getNeighborCount(row, col) {
     
 
 function updateCurrGen() {
-    // console.log('update current gen')
     for (row in currGen) {
         for (col in currGen[row]) {
             // Update the current generation with
@@ -261,7 +253,6 @@ function updateCurrGen() {
 
 
 function updateWorld() {
-    // console.log('update world')
     let cell='';
     
     for (row in currGen) {
