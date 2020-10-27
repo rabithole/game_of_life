@@ -2,9 +2,22 @@ const rows = 40;
 const cols = 60;
 let started = false;// Set to true when use clicks start
 let timer;//To control evolutions
-// let evolutionSpeed=3000;// One second between generations
-// Need 2D arrays. These are 1D
-evolutionSpeed = parseFloat(document.querySelector('#speed').value) * 1000;
+
+
+// let evolutionSpeed = document.querySelector('#speed').value * 1000;
+let evolutionSpeed = .5 * 1000;
+let input = document.querySelector('#speed');
+
+// evolutionSpeed = parseFloat(document.querySelector('#speed').value) * 1000;
+console.log('Speed', evolutionSpeed)
+
+input.addEventListener('input', speed)
+
+function speed(e) {
+    evolutionSpeed = e.target.value * 1000;
+    console.log(evolutionSpeed)
+    // location.reload();
+}
 
 // let random = document.querySelector('#random').checked;
 // console.log('test q', random)
@@ -19,7 +32,6 @@ function checkBox() {
 }
 
 if(localStorage.getItem('checked') === 'true') {
-    console.log('uyu')
     random.checked = true;
 }
 
@@ -29,7 +41,7 @@ let generation = 1;
 
 let currGen =[rows];
 let nextGen =[rows];
-console.log(currGen, nextGen)
+
 // Creates two-dimensional arrays
 function createGenArrays() {
     for (let i = 0; i < rows; i++) {
@@ -38,51 +50,16 @@ function createGenArrays() {
     }
 }
 
-// function initGenArrays() {
-//     for (let i = 0; i < rows; i++) {
-//         for (let j = 0; j < cols; j++) {
-//             currGen[i][j] = 0;
-//             nextGen[i][j] = 0;
-//         }
-//     }
-//     currGen[1][1] = 1;
-//     console.log(currGen[1][1])
-// }
-
-// function createWorld() {
-//         let world = document.querySelector('#world');
-//         console.log(currGen[1])
-//         let tbl = document.createElement('table');
-//         tbl.setAttribute('id','worldgrid');
-//     for (let i = 0; i < rows; i++) {
-//             let tr = document.createElement('tr');
-//             for (let j = 0; j < cols; j++) {
-//                 if(currGen === 1) {
-//                     console.log('ahha')
-//                 }
-//                 let cell = document.createElement('td');
-//                 // console.log(cell)
-//                 cell.setAttribute('id', i + '_' + j);
-//                 cell.setAttribute('class', 'dead');
-//                 cell.addEventListener('click', cellClick);            
-//                 tr.appendChild(cell);
-//             }
-//             tbl.appendChild(tr);
-//         }
-//         world.appendChild(tbl);
-//     }
-
 
 // Sets initial grid
 if(localStorage.getItem('checked') === 'true') {
 // Randomizer
-console.log('true')
     function initGenArrays() {
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
                 if(Math.floor(Math.random() * 2) === 1){
                     currGen[i][j] = 1;
-                    console.log(currGen[i][j] = 1)
+                    // console.log(currGen[i][j] = 1)
                     nextGen[i][j] = 1;
                 } else {
                     currGen[i][j] = 0;
@@ -106,7 +83,6 @@ console.log('true')
 
 // Creates the grid before it is populated. 
 if(localStorage.getItem('checked') === 'true') {
-    console.log('set life')
 // Sets random alive and dead squares. 
     function createWorld() {
         let world = document.querySelector('#world');
@@ -345,6 +321,4 @@ window.onload=()=>{
     initGenArrays(); //Set all array locations to 0=dead
 }
 
-const handleChange = e => {
-    let speed = e.target.value
-  }
+
