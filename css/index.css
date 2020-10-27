@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /*height: 100%;*/
-  background-color: lightgreen;
+  background-color: #98FA9A; /* background color */
 }
 
 body {
@@ -43,7 +43,7 @@ header {
   flex-direction: row;
   justify-content: center;
   width: 50%;
-  background-color: lightblue;
+  background-color: #98D1FA; /* Color of the generations and speed etc... */
   box-shadow: 5px 5px 15px black;
   border: 2px solid black;
   border-radius: 5px;
@@ -95,7 +95,7 @@ button {
   box-shadow: 5px 5px 15px black;
   font-weight: 900;
   font: normal 900 20px Georgia;
-  background-color: lightblue;
+  background-color: #98D1FA; /* button colors */
   border-radius: 3px;
   width: 250px;
 }
@@ -105,7 +105,7 @@ button {
 #world {
     border: 6px solid black;
     padding-bottom: 10px;
-    background-color: red;
+    background-color: #cc0000; /* world outline color */
     padding: 15px;
     width: 700px;
     height: 530px;
@@ -116,7 +116,7 @@ button {
 }
 
 table {
-    background-color: grey;
+    background-color: grey; /* color of the table/grid */
     margin: auto;
     border: 3px solid black;
     border-collapse: collapse;
@@ -142,9 +142,9 @@ td.alive {
 }
 
 article {
-  color: black;
+  color: white; 
   width: 400px;
-  background-color: darkgrey;
+  background-color: #990000; /* color of the rules of life */
   padding: 2%;
   border: 2px solid black;
   border-radius: 3px;
